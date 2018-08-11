@@ -9,7 +9,7 @@
 - [1-2 Potential of Deep](ch1/ch1_2.md)
 - [1-3 Is Deep better than Shallow](ch1/ch1_3.md)
 
-###[chapter 2: Optimization](ch2/ch2.md)
+### [chapter 2: Optimization](ch2/ch2.md)
 
 - [2-1 When Gradient is Zero](ch2/ch2_1.md)
 - [2-2 Deep Linear Network](ch2/ch2_2.md)
@@ -17,14 +17,14 @@
 - [2-4 Geometry of Loss Surfaces (Conjecture)](ch2/ch2_4.md)
 - [2-5 Geometry of Loss Surfaces (Empirical)](ch2/ch2_5.md)
 
-###[chapter 3: Generalization](ch3/ch3.md)
+### [chapter 3: Generalization](ch3/ch3.md)
 
 - [3-1 Capability of Generalization](ch3/ch3_1.md)
 - [3-2 Indicator of Generalization](ch3/ch3_2.md)
 
 ###  [chapter 4: Computational Graph](ch4/ch4.md)（coming soon）
 
-###[chapter 5: Special Network Structure](ch5/ch5.md)
+### [chapter 5: Special Network Structure](ch5/ch5.md)
 
 - [5-1 RNN with Gated Mechanism](ch5/ch5_1.md)
 - [5-2 Sequence Generation](ch5/ch5_2.md)
@@ -39,7 +39,7 @@
 - [6-1 Tips for Training Deep Network](ch6/ch6_1.md)
 - [6-2 Automatically Determining Hyperparameters](ch6/ch6_2.md)
 
-###  [chapter 7: Generative Adversarial Network (GAN)](ch7/ch7.md)
+### [chapter 7: Generative Adversarial Network (GAN)](ch7/ch7.md)
 
 - [7-1 Introduction of Generative Adversarial Network (GAN)](ch7/ch7_1.md)
 - [7-2 Conditional Generation by GAN](ch7/ch7_2.md)
