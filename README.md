@@ -52,7 +52,7 @@
 - [7-9 Application to Sequence Generation](ch7/ch7_9.md)（coming soon）
 - [7-10 Evaluation](ch7/ch7_10.md)
 
-### [chapter 8: Generative Adversarial Network (GAN)](ch8/ch8.md)
+### [chapter 8: Deep Reinforcement Learning](ch8/ch8.md)
 
 - [8-1 Introduction of Reinforcement Learning](ch8/ch8_1.md)
 - [8-2 Policy-based Approach (Learning an Actor)](ch8/ch8_2.md)
