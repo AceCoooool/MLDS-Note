@@ -63,6 +63,8 @@
 - [8-7 Sparse Reward](ch8/ch8_7.md)
 - [8-8 Imitation Learning](ch8/ch8_8.md)
 
+### [Appendix: homework](homework/README.md)（not finish）
+
 ## 说明
 
 1. 上述内容均来自于[MLDS](http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS18.html)课程，欢迎交流与讨论（可能里面会有我个人理解错误的地方，欢迎指出）
