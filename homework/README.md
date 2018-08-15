@@ -2,10 +2,11 @@
 
 **友情提示**：目前暂时只提供hw1和hw3
 
-| homework                                | demo     |
-| ------------------------------------------------------------ | ---- |
-| hw1 |  <div align="center"> <img src="../png/hw1.png" width="400"/> </div><br>    |
-| hw2 |   <div align="center"> <img src="../png/hw3.gif" width="400"/> </div><br>   |
+| hw1  | hw3                                                          |
+| :--: | :----------------------------------------------------------: |
+| <div align="center"> <img src="../png/hw1.png" width="380"/> </div><br>  | <div align="center"> <img src="../png/hw3.gif" width="380"/> </div><br> |
+| hw2 | hw4 |
+|  |  |
 
 ## 1. 依赖库
 
