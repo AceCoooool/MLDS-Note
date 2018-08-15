@@ -9,5 +9,3 @@ transform = transforms.Compose([transforms.ToPILImage(mode='RGB'),
 # process the image..
 def pre_process(x):
     return transform(x)
-
-

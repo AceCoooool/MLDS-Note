@@ -1,5 +1,6 @@
 import os
 import torch
+import imageio
 import numpy as np
 from .utils_logger import Logger
 
@@ -32,6 +33,9 @@ class Embedder(object):
         hair_code = self.hair_dict[feature['hair'][0]]
         eyes_code = self.eyes_dict[feature['eyes'][0]]
         return np.concatenate((hair_code, eyes_code), axis=0)
+
+
+embedding = Embedder()
 
 
 # data pre-process: delete some "unlabeled images", label embedding
@@ -84,8 +88,18 @@ def data_pre_process(root, save_file):
     torch.save(logger, open(save_file, 'wb'))
 
 
+def create_c_demo(h_list, e_list):
+    for i, (h, e) in enumerate(zip(h_list, e_list)):
+        assert 0 <= h < 12 and 0 <= e < 10
+        features = {'hair': [hair_default[h]], 'eyes': [eyes_default[e]]}
+        if i == 0:
+            c_text = embedding.encode_feature(features)
+        else:
+            c_text = np.r_[c_text, embedding.encode_feature(features)]
+    return c_text.reshape((len(e_list), -1))
+
+
 def create_c_test(n=8):
-    embedding = Embedder()
     for i in range(n):
         features = {'hair': [hair_default[np.random.randint(0, len(hair_default))]],
                     'eyes': [eyes_default[np.random.randint(0, len(eyes_default))]]}
@@ -95,4 +109,23 @@ def create_c_test(n=8):
             c_text = np.r_[c_text, embedding.encode_feature(features)]
     return c_text.reshape((n, -1))
 
-# print(create_c_test())
+
+# create git tools
+def create_gif(img_path, save_dir):
+    names = sorted(list(map(lambda x: os.path.join(img_path, x), os.listdir(img_path))))
+    images = []
+    for filename in names:
+        print(filename)
+        images.append(imageio.imread(filename))
+    imageio.mimsave(os.path.join(save_dir, 'gan.gif'), images, duration=0.5)
+
+
+# demo
+def create_demo(model, z, c=None, use_cuda=False, cond=False):
+    if use_cuda and torch.cuda.is_available():
+        device = torch.device('cuda:0')
+        model.to(device)
+        z = z.to(device)
+        if cond: c = c.to(device)
+    model.eval()
+    return model(z, c) if cond else model(z)

@@ -1,5 +1,6 @@
 import torch
 from torch import autograd, nn
+from model import accuracy
 import scipy.linalg as LA
 
 
@@ -70,16 +71,18 @@ def eval_sensitivity(model, dataloder, use_cuda=True):
         model.to(device)
     model.eval()
     criterion = nn.CrossEntropyLoss(size_average=False)
-    total_loss, total_sensitivity = 0, 0
+    total_loss, total_sensitivity, total_acc = 0, 0, 0
     for idx, (data, target) in enumerate(dataloder):
         data = data.to(device).requires_grad_()
         target = target.to(device)
         output = model(data)
         loss_elem = criterion(output, target)
+        total_acc += accuracy(output, target)
         total_loss += loss_elem.item()
-        grad_x, = autograd.grad(loss_elem, data)
+        grad_x, = autograd.grad(loss_elem / data.size(0), data)
         for i in range(data.size(0)):
             total_sensitivity += torch.norm(grad_x[i]).item()
     avg_loss = total_loss / len(dataloder.dataset)
+    avg_acc = total_acc / len(dataloder.dataset)
     avg_sensitivity = total_sensitivity / len(dataloder.dataset)
-    return avg_loss, avg_sensitivity
+    return avg_loss, avg_acc, avg_sensitivity

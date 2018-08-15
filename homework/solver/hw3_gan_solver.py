@@ -48,7 +48,7 @@ class DCGANSolver(SolverBase):
             if self.config.gan == 'DCGAN':
                 y_real = torch.ones(b).to(self.device)
                 y_fake = torch.zeros(b).to(self.device)
-                errD = (self.loss(y_pred_fake, y_fake) + self.loss(y_pred_real, y_real)) / 2
+                errD = self.loss(y_pred_fake, y_fake) + self.loss(y_pred_real, y_real)
             elif self.config.gan == 'LSGAN':
                 errD = self.loss(y_pred_fake, self.a) + self.loss(y_pred_real, self.b)
             elif self.config.gan == 'WGAN':

@@ -2,7 +2,7 @@ import os
 import random
 from torch import optim
 from argparse import Namespace
-from utils import weight_init
+from utils import weights_init_normal
 from solver import CondGANSolver
 from model import CondGAN, bce_loss, ls_loss
 from dataset import cond_anime_loader
@@ -20,7 +20,7 @@ config = {'batch_size': 2, 'epochs': 500, 'use_cuda': True, 'z_size': 100,
 
 config = Namespace(**config)
 model = CondGAN(name='Cond' + config.gan, use_sigmoid=config.gan == 'DCGAN')
-model.apply(weight_init)
+model.apply(weights_init_normal)
 
 if config.gan == 'DCGAN':
     optimizer = {'D': optim.Adam(model.D.parameters(), lr=0.0002, betas=(0.5, 0.999)),

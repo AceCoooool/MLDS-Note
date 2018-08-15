@@ -26,11 +26,11 @@ class DQNSolver(RLSolverBase):
         state = pre_process(state).repeat(self.config.in_c, 1, 1)
         loss, reward_sum, done = 0, 0, False
         while not done:
-            action = random.randint(0, self.num_actions - 1) if random.uniform(0, 1) >= 1 - self.epsilon \
-                else self._make_action(state)
+            action = random.randint(0, self.num_actions - 1) if random.random() >= 1 - self.epsilon \
+                else self._make_action(state, False)
             next_state, reward, done, _ = self.env.step(action)
             next_state = pre_process(next_state)
-            next_state = torch.cat([next_state, state[:3]], dim=0)
+            next_state = torch.cat([state[:3], next_state], dim=0)
             reward_sum += self.reward_func(reward)
             self.step += 1
             self.memory.append((state, next_state, torch.LongTensor([action]),
@@ -39,7 +39,7 @@ class DQNSolver(RLSolverBase):
             if self.step >= self.config.observate_time:
                 loss = self._update_param()
                 self.update_step += 1
-                if self.update_step % self.config.update_target == 0:
+                if self.update_step % self.config.update_target:
                     self.target.load_state_dict(self.model.state_dict())
             if self.step <= self.eps_step:
                 self.epsilon -= (self.init_eps - self.final_eps) / self.eps_step
@@ -65,9 +65,8 @@ class DQNSolver(RLSolverBase):
 
         current_q = self.model(batch_state).gather(1, batch_action)
         if self.config.use_double:
-            next_q = batch_reward + (1 - batch_done) * self.config.gamma * self.target(batch_next). \
-                gather(1, self.model(batch_next).max(-1, keepdim=True)[1])
-            next_q = next_q.detach()
+            next_q = batch_reward + (1 - batch_done) * self.config.gamma * self.target(batch_next).detach(). \
+                gather(1, self.model(batch_next).max(-1, keepdim=True)[1].detach())
         else:
             next_q = batch_reward + (1 - batch_done) * self.config.gamma * \
                      self.target(batch_next).detach().max(-1, keepdim=True)[0]
@@ -78,7 +77,7 @@ class DQNSolver(RLSolverBase):
         self.optimizer.step()
         return loss.item()
 
-    def _make_action(self, state):
+    def _make_action(self, state, test=True):
         """
         Return predicted action of your agent
         Input:

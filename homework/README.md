@@ -60,7 +60,39 @@
 
 ### hw3. GAN之旅 
 
-coming soon
+1. 交互方式（Jupyter --- 更推荐）：
+
+   ```shell
+   cd jupyter
+   jupyter notebook
+   ```
+
+   选择`hw3_xxxxx.ipynb`即可
+
+2. 本地模型
+
+   ```
+   python hw3/hw3_xxx_train.py
+   ```
+
+   - 这部分建议采用类似PyCharm等IDE
+
+注意事项，这部分们默认的数据地址为：`/home/你的电脑名字/data/mlds`
+
+且文件结构如下：
+
+```shell
+- mlds
+  - extra_data
+    - images
+    - readme.txt
+    - tags.csv
+  - faces
+    - xxx.png
+  - sampling_testing_text.txt
+  - tags_clean.csv
+  - testing_tags.csv
+```
 
 ### hw4. 强化学习之旅
 

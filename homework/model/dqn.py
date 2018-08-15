@@ -1,5 +1,7 @@
 from model import BaseModel
+from itertools import chain
 from torch import nn
+from torch.nn import functional as F, init
 
 
 # Deep Q-Learning Network
@@ -25,3 +27,34 @@ class DQN(BaseModel):
             x = value + (act - act.mean(1, keepdim=True))
         q_values = self.fc2(x)
         return q_values
+
+
+class A2CNet(BaseModel):
+    def __init__(self, name='A2C', num_actions=4):
+        super(A2CNet, self).__init__()
+        self.__name__ = name
+        self.share_conv = nn.Sequential(nn.Conv2d(4, 32, 8, stride=4), nn.ReLU(inplace=True),
+                                        nn.Conv2d(32, 64, 4, stride=2), nn.ReLU(inplace=True),
+                                        nn.Conv2d(64, 32, 3, stride=1), nn.ReLU(inplace=True))
+        self.share_fc = nn.Sequential(nn.Linear(32 * 7 * 7, 512), nn.ReLU(inplace=True))
+        self.critic = nn.Linear(512, 1)
+        self.actor = nn.Linear(512, num_actions)
+        self._weight_init()
+
+    def forward(self, x):
+        x = self.share_fc(self.share_conv(x).view(-1, 32 * 7 * 7))
+        value = self.critic(x)
+        pi = F.softmax(x, dim=1)
+        return value, pi
+
+    def _weight_init(self):
+        for m in chain(self.share_conv.modules(), self.share_fc.modules()):
+            if isinstance(m, (nn.Conv2d, nn.Linear)):
+                init.orthogonal_(m.weight.data, gain=init.calculate_gain('relu'))
+                init.constant_(m.bias.data, 0)
+        for m in self.critic.modules():
+            init.orthogonal_(m.weight.data)
+            init.constant_(m.bias.data, 0)
+        for m in self.actor.modules():
+            init.orthogonal_(m.weight.data, gain=0.01)
+            init.constant_(m.bias.data, 0)
