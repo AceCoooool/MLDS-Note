@@ -1,6 +1,12 @@
 # MLDS-Note
 关于[Machine Learning and having it deep and structured (2018,Spring)](http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS18.html)课程的学习笔记
 
+| hw1  | hw3                                                          |
+| :--: | :----------------------------------------------------------: |
+| <div align="center"> <img src="./png/hw1.png" width="350"/> </div><br>  | <div align="center"> <img src="./png/hw3.gif" width="350"/> </div><br> |
+| hw2 | hw4 |
+|  |  |
+
 ## 目录
 
 ### [chapter 1: Why Deep Structure](ch1/ch1.md)
@@ -63,7 +69,12 @@
 - [8-7 Sparse Reward](ch8/ch8_7.md)
 - [8-8 Imitation Learning](ch8/ch8_8.md)
 
-### [Appendix: homework](homework/README.md)（not finish）
+### [Appendix: homework](homework/README.md)
+
+- [hw1](homework/README.md)：finish
+- [hw2](homework/README.md)：TODO（not recently）
+- [hw3](homework/README.md)：coming soon
+- [hw4](homework/README.md)：coming soon
 
 ## 说明
 
