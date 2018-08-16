@@ -13,7 +13,7 @@
 本章主要围绕下述三个子模块
 
 - ch1_1. Can shallow network fit any function？
-- ch1_2. How touse deep to fit functions?
+- ch1_2. How to use deep to fit functions?
 - ch1_3. Is deep better than shallow?
 
 ---
@@ -26,3 +26,4 @@
 2. shallow网络结构指的是只包含一个隐藏层的神经网络模型
 3. 激活函数为ReLU
 
+> 一些"更宽泛"的证明见参考论文
